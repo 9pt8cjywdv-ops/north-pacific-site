@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Pacific</title>
+<meta name="description" content="North Pacific is a South African financial services provider offering compliance and intermediary services for crypto assets, and building the North Pacific Wallet.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column, a deep-ocean hero, then plain sections on a cool neutral ground */
+:root {
+  --bg: #F6F8F9; --surface: #FFFFFF; --ink: #0D1F2B; --muted: #4F616C; --line: #DCE4E8;
+  --deep: #0B3A4A; --deep-ink: #E8F4F6; --accent: #E8743B; --accent-ink: #FFFFFF; --mark: #FFF1A8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #071016; --surface: #0F1D25; --ink: #E4ECEF; --muted: #9AADB7; --line: #21363F;
+    --deep: #0B3A4A; --deep-ink: #E8F4F6; --accent: #F08A55; --accent-ink: #1A0D06; --mark: #5A4A00; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--body); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; margin: 0; text-wrap: balance; }
+.todo { background: var(--mark); color: var(--ink); padding: 0 4px; border-radius: 3px; }
+
+/* header + hero */
+.hero { background: var(--deep); color: var(--deep-ink); position: relative; overflow: hidden; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .32; pointer-events: none; }
+.hero > * { position: relative; }
+nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 700 19px var(--display); letter-spacing: .01em; text-decoration: none; }
+.brand svg { width: 30px; height: 30px; }
+nav ul { list-style: none; display: flex; gap: 26px; margin: 0; padding: 0; font-size: 15px; }
+nav ul a { text-decoration: none; opacity: .85; }
+nav ul a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 640px) { nav ul { display: none; } }
+.hero-body { padding-block: 72px 96px; max-width: 760px; }
+.eyebrow { font: 600 13px var(--body); letter-spacing: .14em; text-transform: uppercase; color: #F6B48F; }
+.hero h1 { font-size: clamp(38px, 6vw, 64px); margin-top: 14px; }
+.hero p { font-size: clamp(17px, 2vw, 20px); max-width: 60ch; margin: 22px 0 0; opacity: .9; }
+.cta { display: inline-flex; margin-top: 32px; padding: 14px 22px; border-radius: 14px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; }
+.cta:hover { filter: brightness(1.05); }
+
+/* sections */
+section { padding-block: 80px; border-bottom: 1px solid var(--line); }
+.section-head { max-width: 640px; margin-bottom: 40px; }
+.section-head h2 { font-size: clamp(28px, 4vw, 40px); }
+.section-head p { color: var(--muted); margin: 14px 0 0; }
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 860px) { .services { grid-template-columns: 1fr; } }
+.service { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+.service h3 { font-size: 21px; }
+.service p { margin: 0; color: var(--muted); font-size: 16px; }
+.tag { align-self: flex-start; font: 600 12px var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.soon { border-color: var(--accent); color: var(--accent); }
+
+.regulatory { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+@media (max-width: 860px) { .regulatory { grid-template-columns: 1fr; } }
+dl.facts { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 8px 24px; }
+dl.facts div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+dl.facts div:last-child { border-bottom: 0; }
+dt { color: var(--muted); font-size: 15px; }
+dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+@media (max-width: 480px) { dl.facts div { grid-template-columns: 1fr; gap: 2px; } }
+.risk { color: var(--muted); font-size: 15px; }
+.risk p { margin: 0 0 12px; }
+
+.contact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+.contact div { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; }
+.contact h3 { font: 600 13px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.contact p { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
+
+footer { padding-block: 36px 48px; color: var(--muted); font-size: 14px; }
+footer p { margin: 0 0 8px; max-width: 90ch; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="waves" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#top" id="top">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#E8743B"/><path d="M6 20c3-3 5-3 8 0s5 3 8 0 3-2 4-2" stroke="#0B3A4A" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M6 13c3-3 5-3 8 0s5 3 8 0 3-2 4-2" stroke="#0B3A4A" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".55"/></svg>
+        North Pacific
+      </a>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#regulatory">Regulatory</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-body">
+      <div class="eyebrow">Financial services provider · South Africa</div>
+      <h1>Crypto asset services, built on compliance.</h1>
+      <p>North Pacific provides compliance and intermediary services for crypto assets in South Africa, and is building the North Pacific Wallet: a simple way to buy, hold, send and spend USDT.</p>
+      <a class="cta" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p>We work with businesses that need to handle crypto assets properly, and we're building a wallet for everyday South Africans.</p>
+      </div>
+      <div class="services">
+        <article class="service">
+          <span class="tag">Available</span>
+          <h3>Compliance services</h3>
+          <p>Support for crypto asset businesses meeting their FSCA and FIC obligations: client due diligence, risk management and compliance programmes, and reporting.</p>
+        </article>
+        <article class="service">
+          <span class="tag">Available</span>
+          <h3>Intermediary services</h3>
+          <p>Regulated intermediary services for crypto asset transactions, delivered under our FSCA authorisation.</p>
+        </article>
+        <article class="service">
+          <span class="tag soon">In development</span>
+          <h3>North Pacific Wallet</h3>
+          <p>A mobile app to buy USDT with instant EFT, send it to any South African mobile number, and receive or withdraw it on Ethereum, with every fee shown before you confirm.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="regulatory">
+    <div class="wrap regulatory">
+      <div>
+        <div class="section-head" style="margin-bottom:24px">
+          <h2>Regulatory information</h2>
+          <p>North Pacific is an authorised financial services provider regulated by the Financial Sector Conduct Authority.</p>
+        </div>
+        <div class="risk">
+          <p><strong>Risk disclosure.</strong> Crypto assets are volatile and you may lose some or all of the value you hold. Past performance is not a guide to future performance.</p>
+          <p>Nothing on this website is financial advice or an offer to buy or sell any crypto asset.</p>
+        </div>
+      </div>
+      <dl class="facts">
+        <div><dt>Registered name</dt><dd><span class="todo">[Registered company name]</span></dd></div>
+        <div><dt>Registration number</dt><dd><span class="todo">[CIPC registration number]</span></dd></div>
+        <div><dt>FSP number</dt><dd><span class="todo">[FSP number]</span></dd></div>
+        <div><dt>Regulator</dt><dd>Financial Sector Conduct Authority (FSCA)</dd></div>
+        <div><dt>D-U-N-S number</dt><dd><span class="todo">[D-U-N-S number]</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Contact us</h2>
+      </div>
+      <div class="contact">
+        <div><h3>Email</h3><p><span class="todo">[info@yourdomain.co.za]</span></p></div>
+        <div><h3>Phone</h3><p><span class="todo">[+27 00 000 0000]</span></p></div>
+        <div><h3>Office</h3><p><span class="todo">[Street address, City, Postal code]</span></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><span class="todo">[Registered company name]</span> (Registration <span class="todo">[number]</span>) is an authorised Financial Services Provider, FSP No. <span class="todo">[number]</span>.</p>
+    <p>© <span id="year">2026</span> North Pacific. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+(function () {
+  var c = document.getElementById('waves');
+  if (!c || !c.getContext) return;
+  function draw() {
+    var r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    c.width = r.width * d; c.height = r.height * d;
+    var x = c.getContext('2d');
+    x.strokeStyle = 'rgba(232,244,246,.55)'; x.lineWidth = 1.2 * d;
+    for (var k = 0; k < 14; k++) {
+      x.beginPath();
+      for (var i = 0; i <= c.width; i += 6 * d) {
+        var y = c.height * .42 + k * 18 * d + Math.sin(i / (90 * d) + k * .6) * 12 * d + Math.sin(i / (27 * d) + k) * 3 * d;
+        i ? x.lineTo(i, y) : x.moveTo(i, y);
+      }
+      x.stroke();
+    }
+  }
+  draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+</body>
+</html>
