@@ -73,7 +73,7 @@ dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
 .risk { color: var(--muted); font-size: 15px; }
 .risk p { margin: 0 0 12px; }
 
-.contact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); gap: 20px; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
 .contact div { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; }
 .contact h3 { font: 600 13px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
@@ -148,11 +148,10 @@ footer p { margin: 0 0 8px; max-width: 90ch; }
         </div>
       </div>
       <dl class="facts">
-        <div><dt>Registered name</dt><dd><span class="todo">[Registered company name]</span></dd></div>
-        <div><dt>Registration number</dt><dd><span class="todo">[CIPC registration number]</span></dd></div>
-        <div><dt>FSP number</dt><dd><span class="todo">[FSP number]</span></dd></div>
+        <div><dt>Registered name</dt><dd>North Pacific (Pty) Ltd</dd></div>
+        <div><dt>FSP number</dt><dd>54432</dd></div>
         <div><dt>Regulator</dt><dd>Financial Sector Conduct Authority (FSCA)</dd></div>
-        <div><dt>D-U-N-S number</dt><dd><span class="todo">[D-U-N-S number]</span></dd></div>
+        <div><dt>D-U-N-S number</dt><dd>588248001</dd></div>
       </dl>
     </div>
   </section>
@@ -163,9 +162,7 @@ footer p { margin: 0 0 8px; max-width: 90ch; }
         <h2>Contact us</h2>
       </div>
       <div class="contact">
-        <div><h3>Email</h3><p><span class="todo">[info@yourdomain.co.za]</span></p></div>
-        <div><h3>Phone</h3><p><span class="todo">[+27 00 000 0000]</span></p></div>
-        <div><h3>Office</h3><p><span class="todo">[Street address, City, Postal code]</span></p></div>
+        <div><h3>Email</h3><p><a href="mailto:admin@northpacific.co.za">admin@northpacific.co.za</a></p></div>
       </div>
     </div>
   </section>
@@ -173,7 +170,7 @@ footer p { margin: 0 0 8px; max-width: 90ch; }
 
 <footer>
   <div class="wrap">
-    <p><span class="todo">[Registered company name]</span> (Registration <span class="todo">[number]</span>) is an authorised Financial Services Provider, FSP No. <span class="todo">[number]</span>.</p>
+    <p>North Pacific (Pty) Ltd is an authorised Financial Services Provider, FSP No. 54432.</p>
     <p>© <span id="year">2026</span> North Pacific. All rights reserved.</p>
   </div>
 </footer>

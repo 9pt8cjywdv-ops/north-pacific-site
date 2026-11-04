@@ -2,7 +2,7 @@
 
 One-page company site: `index.html` and `favicon.svg`. No build step.
 
-Yellow-highlighted `[placeholders]` still need real details: registered name, CIPC number, FSP number, D-U-N-S number, email, phone and address.
+Company details are in `index.html` (regulatory section, contact and footer).
 
 ## Hosting (free on GitHub Pages)
 
