@@ -40,6 +40,7 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
+a[href^="tel"] { white-space: nowrap; }
 img, svg { display: block; }
 :focus-visible { outline: 3px solid var(--tide); outline-offset: 3px; border-radius: 6px; }
 .wrap { max-width: 1160px; margin: 0 auto; padding-inline: 24px; }
@@ -213,7 +214,8 @@ p { margin: 0; }
 
 /* footer */
 footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14px; color: var(--muted); }
-.f-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, .7fr)); gap: 40px; }
+.f-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, .8fr)); gap: 40px; }
+@media (max-width: 960px) { .f-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 760px) { .f-grid { grid-template-columns: 1fr; gap: 28px; } }
 .f-grid h3 { font: 600 15px var(--body); color: var(--ink); letter-spacing: 0; margin-bottom: 12px; }
 .f-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
@@ -369,7 +371,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
         </div>
         <div class="risk">
           <p><strong>Crypto assets carry risk.</strong> Their value can rise and fall sharply, and you could lose some or all of the money you put in. USDT aims to track the US dollar but is not guaranteed to, and it is not protected by any deposit insurance.</p>
-          <p>Nothing on this website is financial advice, or an offer to buy or sell any crypto asset. Rates shown are indicative only.</p>
+          <p>Nothing on this website is financial advice, or an offer to buy or sell any crypto asset. Rates shown are indicative only. Read our full <a href="legal/north-pacific-crypto-asset-risk-disclosure.pdf">crypto asset risk disclosure</a>.</p>
         </div>
       </div>
       <dl class="facts">
@@ -377,7 +379,11 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
         <div><dt>FSP number</dt><dd>54432</dd></div>
         <div><dt>Regulator</dt><dd>Financial Sector Conduct Authority (FSCA)</dd></div>
         <div><dt>D-U-N-S number</dt><dd>588248001</dd></div>
-        <div><dt>Contact</dt><dd><a href="mailto:admin@northpacific.co.za">admin@northpacific.co.za</a></dd></div>
+        <div><dt>Registration number</dt><dd>2023/54144/07</dd></div>
+        <div><dt>Key Individual</dt><dd>Matthew Morgan</dd></div>
+        <div><dt>Compliance officer</dt><dd>Thabiso Maapola</dd></div>
+        <div><dt>Contact</dt><dd><a href="mailto:admin@northpacific.co.za">admin@northpacific.co.za</a> or <a href="tel:+27646527542">064 652 7542</a></dd></div>
+        <div><dt>Disclosures</dt><dd><a href="legal/north-pacific-fais-disclosures.pdf">FAIS disclosures (PDF)</a></dd></div>
       </dl>
     </div>
   </section>
@@ -409,7 +415,19 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       </div>
       <div>
         <h3>Company</h3>
-        <ul><li><a href="#regulatory">Regulatory information</a></li><li><a href="mailto:admin@northpacific.co.za">Contact</a></li><li><a href="mailto:admin@northpacific.co.za?subject=Complaint">Complaints</a></li></ul>
+        <ul><li><a href="#regulatory">Regulatory information</a></li><li><a href="mailto:admin@northpacific.co.za">admin@northpacific.co.za</a></li><li><a href="tel:+27646527542">064 652 7542</a></li></ul>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="legal/north-pacific-fais-disclosures.pdf">FAIS disclosures</a></li>
+          <li><a href="legal/north-pacific-complaints-resolution-policy.pdf">Complaints</a></li>
+          <li><a href="legal/north-pacific-conflict-of-interest-policy.pdf">Conflicts of interest</a></li>
+          <li><a href="legal/north-pacific-crypto-asset-risk-disclosure.pdf">Crypto risk disclosure</a></li>
+          <li><a href="legal/north-pacific-privacy-policy.pdf">Privacy policy</a></li>
+          <li><a href="legal/north-pacific-paia-manual.pdf">PAIA manual</a></li>
+          <li><a href="legal/north-pacific-website-terms-of-use.pdf">Website terms</a></li>
+        </ul>
       </div>
     </div>
     <div class="f-legal">
