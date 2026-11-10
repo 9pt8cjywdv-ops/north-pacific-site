@@ -211,6 +211,15 @@ p { margin: 0; }
 .cta-end h2 { font-size: clamp(34px, 5.4vw, 64px); max-width: 16ch; margin-inline: auto; }
 .cta-end .lede { margin: 20px auto 0; }
 .cta-end .hero-actions { justify-content: center; }
+.forms { list-style: none; padding: 0; margin: 40px auto 0; max-width: 680px; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); }
+.forms li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.forms li:last-child { border-bottom: 0; }
+.forms b { display: block; font-weight: 600; }
+.forms span { color: var(--muted); font-size: 15px; }
+.dl { display: flex; gap: 8px; flex: none; }
+.dl a { text-decoration: none; font-weight: 600; font-size: 14px; padding: 7px 14px; border-radius: 999px; background: var(--tide-soft); color: var(--tide); }
+.dl a:hover { background: var(--tide); color: var(--tide-ink); }
+@media (max-width: 480px) { .forms li { flex-direction: column; align-items: flex-start; } }
 
 /* footer */
 footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14px; color: var(--muted); }
@@ -250,7 +259,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
         <h1>Trade USDT and rand in size.</h1>
         <p class="lede">A real trader at North Pacific buys and sells USDT against rand for your business. Every quote is priced across the full order book for your size, settled from your prefunded balance, and confirmed in writing.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="mailto:admin@northpacific.co.za?subject=Open%20an%20OTC%20account">Open a business account</a>
+          <a class="btn btn-primary" href="#open">Open an account</a>
           <a class="btn btn-ghost" href="#otc">See how it works</a>
         </div>
       </div>
@@ -388,12 +397,18 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
     </div>
   </section>
 
-  <section class="cta-end">
+  <section class="cta-end" id="open">
     <div class="wrap">
       <h2>Your next rand–USDT trade, priced properly.</h2>
-      <p class="lede">Tell us about your business and the volumes you trade. A trader will come back to you within one working day.</p>
+      <p class="lede">Download the application, fill it in, and email it to us with the documents on the checklist. Our compliance team reviews every application, usually within a few working days.</p>
+      <ul class="forms">
+        <li><div><b>Business application (KYB)</b><span>Companies, trusts and partnerships</span></div><div class="dl"><a href="onboarding/north-pacific-business-application-kyb.pdf">PDF</a><a href="onboarding/north-pacific-business-application-kyb.docx">Word</a></div></li>
+        <li><div><b>Individual application (KYC)</b><span>Private clients trading in size</span></div><div class="dl"><a href="onboarding/north-pacific-individual-application-kyc.pdf">PDF</a><a href="onboarding/north-pacific-individual-application-kyc.docx">Word</a></div></li>
+        <li><div><b>Document checklist</b><span>What to send with your application</span></div><div class="dl"><a href="onboarding/north-pacific-onboarding-checklist.pdf">PDF</a></div></li>
+      </ul>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="mailto:admin@northpacific.co.za?subject=Open%20an%20OTC%20account">Open a business account</a>
+        <a class="btn btn-primary" href="mailto:admin@northpacific.co.za?subject=OTC%20account%20application">Email your application</a>
+        <a class="btn btn-ghost" href="tel:+27646527542">Call 064 652 7542</a>
       </div>
     </div>
   </section>
@@ -411,7 +426,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       </div>
       <div>
         <h3>Products</h3>
-        <ul><li><a href="#otc">OTC desk</a></li><li><a href="#wallet">North Pacific Wallet</a></li></ul>
+        <ul><li><a href="#otc">OTC desk</a></li><li><a href="#open">Open an account</a></li><li><a href="#wallet">North Pacific Wallet</a></li></ul>
       </div>
       <div>
         <h3>Company</h3>
