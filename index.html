@@ -427,7 +427,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
   var onScroll = function () { top.classList.toggle('scrolled', window.scrollY > 8); };
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  // Indicative rate: public USDTZAR ticker. If it can't load, the card says so and still works as a calculator once a rate arrives.
+  // Indicative rate from North Pacific's server (market price before the desk's margin). If it can't load, the card says so and still works as a calculator once a rate arrives.
   var bid = null, ask = null, side = 'buy';
   // South African style: spaces between thousands, a point for decimals.
   var num = function (n, dp) { var f = n.toFixed(dp).split('.'); return f[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + (dp ? '.' + f[1] : ''); };
@@ -454,7 +454,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
   amount.addEventListener('blur', function () { var v = parseAmount(); amount.value = v ? num(v, v % 1 ? 2 : 0) : ''; });
 
   function load() {
-    fetch('https://api.luno.com/api/1/ticker?pair=USDTZAR', { cache: 'no-store' })
+    fetch('https://api.northpacificgroup.co.za/public/rate')
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (t) {
         bid = parseFloat(t.bid); ask = parseFloat(t.ask);
