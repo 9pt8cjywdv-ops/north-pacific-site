@@ -227,6 +227,31 @@ p { margin: 0; }
 .dl a:hover { background: var(--tide); color: var(--tide-ink); }
 @media (max-width: 480px) { .forms li { flex-direction: column; align-items: flex-start; } }
 
+/* account application form */
+.apply { max-width: 680px; margin: 40px auto 0; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; }
+.kind { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--mist); border-radius: 999px; margin-bottom: 22px; }
+.kind label { position: relative; }
+.kind input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.kind span { display: block; padding: 8px 20px; border-radius: 999px; font-weight: 600; font-size: 15px; color: var(--muted); }
+.kind input:checked + span { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(10, 34, 51, .12); }
+.kind input:focus-visible + span { outline: 3px solid var(--tide); outline-offset: 2px; }
+.apply .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; align-items: end; }
+@media (max-width: 600px) { .apply .grid { grid-template-columns: 1fr; } .apply { padding: 20px; } }
+.f { display: grid; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+.f .opt { font-weight: 400; color: var(--muted); }
+.f input, .f select { box-sizing: border-box; height: 46px; font: 400 16px var(--body); color: var(--ink); background: var(--paper); border: 1.5px solid var(--line); border-radius: var(--r-sm); min-height: 46px; padding: 0 12px; width: 100%; }
+.f input:focus, .f select:focus { outline: none; border-color: var(--tide); }
+.f input[aria-invalid="true"] { border-color: var(--down); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.consent { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0 0; font-size: 14px; color: var(--muted); }
+.consent input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--tide); }
+.err { color: var(--down); font-size: 14px; margin-top: 14px; }
+.apply .btn { margin-top: 20px; width: 100%; }
+.apply .btn[disabled] { opacity: .6; cursor: progress; }
+.done { max-width: 680px; margin: 40px auto 0; text-align: left; background: var(--tide-soft); border-radius: var(--r-lg); padding: 28px; }
+.done h3 { font-size: 22px; }
+.done p { margin-top: 10px; }
+
 /* footer */
 footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14px; color: var(--muted); }
 .f-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, .8fr)); gap: 40px; }
@@ -407,17 +432,47 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 
   <section class="cta-end" id="open">
     <div class="wrap">
-      <h2>Your next rand–USDT trade, priced properly.</h2>
-      <p class="lede">Download the application, fill it in, and email it to us with the documents on the checklist. Our compliance team reviews every application, usually within a few working days.</p>
+      <h2>Open an account</h2>
+      <p class="lede">Tell us who you are. We'll email you the application form and the list of documents we need. Reply with them, and our compliance team will review your application, usually within a few working days.</p>
+
+      <form class="apply" id="apply" novalidate>
+        <div class="kind" role="radiogroup" aria-label="Account type">
+          <label><input type="radio" name="kind" value="business" checked> <span>Business</span></label>
+          <label><input type="radio" name="kind" value="individual"> <span>Individual</span></label>
+        </div>
+        <div class="grid">
+          <label class="f">Full name<input name="fullName" autocomplete="name" required maxlength="120"></label>
+          <label class="f" id="companyField">Company name<input name="company" autocomplete="organization" maxlength="160"></label>
+          <label class="f">Email<input name="email" type="email" autocomplete="email" required maxlength="200"></label>
+          <label class="f">Mobile number<input name="phone" type="tel" autocomplete="tel" required placeholder="082 123 4567"></label>
+          <label class="f">Expected monthly volume
+            <select name="monthlyVolume">
+              <option value="">Choose one</option>
+              <option>Under R500 000</option>
+              <option>R500 000 to R5 million</option>
+              <option>R5 million to R50 million</option>
+              <option>Over R50 million</option>
+            </select>
+          </label>
+          <label class="f"><span>Notes <span class="opt">(optional)</span></span><input name="message" maxlength="1000"></label>
+        </div>
+        <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+        <label class="consent"><input type="checkbox" name="consent" required> <span>I agree that North Pacific may use these details to process my application, as set out in the <a href="legal/north-pacific-privacy-policy.pdf">privacy policy</a>.</span></label>
+        <p class="err" id="applyErr" role="alert" hidden></p>
+        <button class="btn btn-primary" type="submit">Send me the application</button>
+      </form>
+
+      <div class="done" id="applyDone" hidden tabindex="-1">
+        <h3>Check your email</h3>
+        <p>We've sent the application form and checklist to <b id="doneEmail"></b>. Reply to that email with the signed form and your documents. If it hasn't arrived in a few minutes, check your spam folder, or download the forms below.</p>
+      </div>
+
       <ul class="forms">
         <li><div><b>Business application (KYB)</b><span>Companies, trusts and partnerships</span></div><div class="dl"><a href="onboarding/north-pacific-business-application-kyb.pdf">PDF</a></div></li>
         <li><div><b>Individual application (KYC)</b><span>Private clients trading in size</span></div><div class="dl"><a href="onboarding/north-pacific-individual-application-kyc.pdf">PDF</a></div></li>
         <li><div><b>Document checklist</b><span>What to send with your application</span></div><div class="dl"><a href="onboarding/north-pacific-onboarding-checklist.pdf">PDF</a></div></li>
       </ul>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="mailto:admin@northpacific.co.za?subject=OTC%20account%20application">Email your application</a>
-        <a class="btn btn-ghost" href="tel:+27646527542">Call 064 652 7542</a>
-      </div>
+      <p class="lede" style="margin-top:24px">Prefer to talk first? Call <a href="tel:+27646527542">064 652 7542</a> or email <a href="mailto:admin@northpacific.co.za">admin@northpacific.co.za</a>.</p>
     </div>
   </section>
 </main>
@@ -488,6 +543,47 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
     var what = side === 'buy' ? 'Buy USDT, paying R' + (amt || '[amount]') : 'Sell ' + (amt || '[amount]') + ' USDT for rand';
     var body = 'Hi North Pacific desk,\n\nPlease give me a price:\n' + what + '\n\nCompany / name: ' + (who || '') + '\nBest number to reach me: \n';
     window.location.href = 'mailto:admin@northpacific.co.za?subject=' + encodeURIComponent('Price request: ' + what) + '&body=' + encodeURIComponent(body);
+  });
+  // Account application: sent to North Pacific's server, which emails the applicant the right forms.
+  var form = document.getElementById('apply');
+  var company = document.getElementById('companyField');
+  form.addEventListener('change', function (e) {
+    if (e.target.name === 'kind') company.hidden = e.target.value !== 'business';
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var err = document.getElementById('applyErr'), btn = form.querySelector('button[type=submit]');
+    var d = new FormData(form), kind = d.get('kind');
+    var body = { kind: kind, fullName: (d.get('fullName') || '').trim(), email: (d.get('email') || '').trim(), phone: (d.get('phone') || '').trim(), consent: d.get('consent') === 'on', website: d.get('website') || '' };
+    if (kind === 'business') body.company = (d.get('company') || '').trim();
+    if (d.get('monthlyVolume')) body.monthlyVolume = d.get('monthlyVolume');
+    if ((d.get('message') || '').trim()) body.message = d.get('message').trim();
+    form.querySelectorAll('[aria-invalid]').forEach(function (i) { i.removeAttribute('aria-invalid'); });
+    var missing = [];
+    if (body.fullName.length < 2) missing.push('fullName');
+    if (kind === 'business' && !body.company) missing.push('company');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(body.email)) missing.push('email');
+    if (!/^[+\d][\d ()-]{7,20}$/.test(body.phone)) missing.push('phone');
+    if (missing.length) {
+      missing.forEach(function (n) { form.querySelector('[name=' + n + ']').setAttribute('aria-invalid', 'true'); });
+      err.textContent = 'Check the highlighted fields.'; err.hidden = false;
+      form.querySelector('[name=' + missing[0] + ']').focus(); return;
+    }
+    if (!body.consent) { err.textContent = 'Please agree to the privacy policy so we can process your application.'; err.hidden = false; return; }
+    err.hidden = true; btn.disabled = true; btn.textContent = 'Sending…';
+    fetch('https://api.northpacificgroup.co.za/public/applications', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.j.message || 'Something went wrong.');
+        form.hidden = true;
+        document.getElementById('doneEmail').textContent = body.email;
+        var done = document.getElementById('applyDone'); done.hidden = false; done.focus();
+      })
+      .catch(function (e2) {
+        err.textContent = (e2 && e2.message && e2.message !== 'Failed to fetch' ? e2.message + ' ' : 'We couldn\'t send your application. ') + 'You can also email admin@northpacific.co.za or call 064 652 7542.';
+        err.hidden = false;
+      })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Send me the application'; });
   });
 })();
 </script>
