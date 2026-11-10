@@ -79,10 +79,16 @@ p { margin: 0; }
 .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 14px; font-weight: 500; color: var(--muted); margin-bottom: 26px; }
 .badge b { background: var(--tide-soft); color: var(--tide); border-radius: 999px; padding: 2px 9px; font-weight: 700; font-size: 13px; }
 
-/* quote card — the one memorable thing */
+/* price request card — the one memorable thing */
 .quote { background: var(--band); color: var(--band-ink); border-radius: var(--r-lg); padding: 28px; position: relative; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(10, 34, 51, .55); }
 .quote::before { content: ""; position: absolute; inset: auto -30% -55% auto; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--tide) 40%, transparent), transparent 65%); pointer-events: none; }
 .quote > * { position: relative; }
+.q-title { font-size: clamp(26px, 3vw, 34px); margin-top: 26px; color: var(--band-ink); }
+.q-sub { color: var(--band-muted); font-size: 15px; margin-top: 10px; max-width: 40ch; }
+.field-name { border-top: 1px solid var(--band-line); }
+.field.field-name input { font: 500 18px var(--body); letter-spacing: 0; padding: 6px 0; }
+.field input::placeholder { color: color-mix(in srgb, var(--band-muted) 55%, transparent); }
+.q-foot button { border: 0; }
 .q-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .pair { display: flex; align-items: center; gap: 10px; font-weight: 600; }
 .coin { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 700 13px var(--display); }
@@ -264,13 +270,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
         </div>
       </div>
 
-      <aside class="quote" aria-label="Indicative USDT to rand rate">
+      <form class="quote" id="rfq" aria-labelledby="rfq-title" novalidate>
         <div class="q-head">
           <div class="pair"><span class="coin usdt" aria-hidden="true">₮</span><span class="coin zar" aria-hidden="true">R</span> USDT / ZAR</div>
-          <span class="live off" id="live"><i></i><span id="live-label">Indicative</span></span>
         </div>
-        <div class="rate" id="rate">R —<small>per USDT</small></div>
-        <div class="spread"><span>Buy <b id="ask">—</b></span><span>Sell <b id="bid">—</b></span></div>
+        <h2 id="rfq-title" class="q-title">Request a price</h2>
+        <p class="q-sub">Tell us what you need. A trader confirms a firm, all-in rate with you before anything is agreed.</p>
 
         <div class="calc">
           <div class="side" role="group" aria-label="Direction">
@@ -278,17 +283,20 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
             <button type="button" aria-pressed="false" data-side="sell">Sell USDT</button>
           </div>
           <div class="field">
-            <label for="amount" id="amount-label">You pay</label>
-            <div class="row"><span class="cur" id="in-cur">R</span><input id="amount" inputmode="decimal" autocomplete="off" value="1 000 000"></div>
+            <label for="amount" id="amount-label">Amount you want to pay</label>
+            <div class="row"><span class="cur" id="in-cur">R</span><input id="amount" name="amount" inputmode="decimal" autocomplete="off" placeholder="1 000 000"></div>
           </div>
-          <div class="result"><span id="out-label">You receive about</span><output id="out" for="amount">—</output></div>
+          <div class="field field-name">
+            <label for="company">Company or your name</label>
+            <div class="row"><input id="company" name="company" autocomplete="organization" placeholder="Your business"></div>
+          </div>
         </div>
 
         <div class="q-foot">
-          <p>Indicative market rate before the desk's margin. Not a quote or an offer. A trader gives you a firm price on request.</p>
-          <a class="btn" href="mailto:admin@northpacific.co.za?subject=Request%20a%20quote">Get a firm quote</a>
+          <p>Existing clients: your trader will call or message you back. New clients: we'll start your account application first.</p>
+          <button class="btn" type="submit">Request a price</button>
         </div>
-      </aside>
+      </form>
     </div>
   </section>
 
@@ -380,7 +388,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
         </div>
         <div class="risk">
           <p><strong>Crypto assets carry risk.</strong> Their value can rise and fall sharply, and you could lose some or all of the money you put in. USDT aims to track the US dollar but is not guaranteed to, and it is not protected by any deposit insurance.</p>
-          <p>Nothing on this website is financial advice, or an offer to buy or sell any crypto asset. Rates shown are indicative only. Read our full <a href="legal/north-pacific-crypto-asset-risk-disclosure.pdf">crypto asset risk disclosure</a>.</p>
+          <p>Nothing on this website is financial advice, or an offer to buy or sell any crypto asset. Read our full <a href="legal/north-pacific-crypto-asset-risk-disclosure.pdf">crypto asset risk disclosure</a>.</p>
         </div>
       </div>
       <dl class="facts">
@@ -448,7 +456,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
     </div>
     <div class="f-legal">
       <p>North Pacific (Pty) Ltd is an authorised Financial Services Provider, FSP No. 54432, regulated by the Financial Sector Conduct Authority.</p>
-      <p>Crypto assets are high risk and their value can go down as well as up. Indicative rates on this site use public market data and are not an offer.</p>
+      <p>Crypto assets are high risk and their value can go down as well as up.</p>
       <p>© <span id="year">2026</span> North Pacific (Pty) Ltd. All rights reserved.</p>
     </div>
   </div>
@@ -461,52 +469,26 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
   var onScroll = function () { top.classList.toggle('scrolled', window.scrollY > 8); };
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  // Indicative rate from North Pacific's server (market price before the desk's margin). If it can't load, the card says so and still works as a calculator once a rate arrives.
-  var bid = null, ask = null, side = 'buy';
-  // South African style: spaces between thousands, a point for decimals.
-  var num = function (n, dp) { var f = n.toFixed(dp).split('.'); return f[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + (dp ? '.' + f[1] : ''); };
-  var fmtR = function (n, dp) { return 'R' + num(n, dp); };
-  var fmtU = function (n) { return num(n, 2) + ' USDT'; };
-  var amount = document.getElementById('amount'), out = document.getElementById('out');
-
-  function parseAmount() { var v = parseFloat(amount.value.replace(/[^\d.]/g, '')); return isFinite(v) ? v : 0; }
-  function render() {
-    if (!bid || !ask) { out.textContent = '—'; return; }
-    var v = parseAmount();
-    out.textContent = side === 'buy' ? fmtU(v / ask) : fmtR(v * bid, 2);
-  }
+  // Price request: builds an email to the desk. No prices are shown on the site; a trader confirms every rate.
+  var side = 'buy', amount = document.getElementById('amount');
+  // South African style: spaces between thousands.
+  var num = function (v) { var f = String(v).split('.'); return f[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + (f[1] ? '.' + f[1] : ''); };
   function setSide(s) {
     side = s;
     document.querySelectorAll('.side button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.side === s)); });
-    document.getElementById('amount-label').textContent = s === 'buy' ? 'You pay' : 'You sell';
+    document.getElementById('amount-label').textContent = s === 'buy' ? 'Amount you want to pay' : 'Amount of USDT you want to sell';
     document.getElementById('in-cur').textContent = s === 'buy' ? 'R' : '₮';
-        amount.value = s === 'buy' ? '1 000 000' : '50 000';
-    render();
+    amount.placeholder = s === 'buy' ? '1 000 000' : '50 000';
   }
   document.querySelectorAll('.side button').forEach(function (b) { b.addEventListener('click', function () { setSide(b.dataset.side); }); });
-  amount.addEventListener('input', render);
-  amount.addEventListener('blur', function () { var v = parseAmount(); amount.value = v ? num(v, v % 1 ? 2 : 0) : ''; });
-
-  function load() {
-    fetch('https://api.northpacificgroup.co.za/public/rate')
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (t) {
-        bid = parseFloat(t.bid); ask = parseFloat(t.ask);
-        if (!(bid > 0 && ask > 0)) throw new Error('no price');
-        document.getElementById('rate').innerHTML = fmtR((bid + ask) / 2, 2) + '<small>per USDT</small>';
-        document.getElementById('ask').textContent = fmtR(ask, 2);
-        document.getElementById('bid').textContent = fmtR(bid, 2);
-        document.getElementById('live').classList.remove('off');
-        document.getElementById('live-label').textContent = 'Live market';
-        render();
-      })
-      .catch(function () {
-        document.getElementById('live').classList.add('off');
-        document.getElementById('live-label').textContent = 'Rate unavailable';
-        if (!bid) document.getElementById('rate').innerHTML = 'On request<small>ask the desk</small>';
-      });
-  }
-  load(); setInterval(load, 30000);
+  amount.addEventListener('blur', function () { var v = amount.value.replace(/[^\d.]/g, ''); amount.value = v ? num(v) : ''; });
+  document.getElementById('rfq').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var amt = amount.value.trim(), who = document.getElementById('company').value.trim();
+    var what = side === 'buy' ? 'Buy USDT, paying R' + (amt || '[amount]') : 'Sell ' + (amt || '[amount]') + ' USDT for rand';
+    var body = 'Hi North Pacific desk,\n\nPlease give me a price:\n' + what + '\n\nCompany / name: ' + (who || '') + '\nBest number to reach me: \n';
+    window.location.href = 'mailto:admin@northpacific.co.za?subject=' + encodeURIComponent('Price request: ' + what) + '&body=' + encodeURIComponent(body);
+  });
 })();
 </script>
 </body>
