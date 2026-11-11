@@ -304,7 +304,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 .f-legal { margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; gap: 8px; max-width: 110ch; }
 </style>
 <style>
-.news-hero { padding-block: 40px 24px; }
+.news-hero { padding-block: 48px 24px; }
 .back { display: block; width: fit-content; margin-bottom: 22px; color: var(--muted); font-weight: 600; font-size: 15px; text-decoration: none; }
 .back:hover { color: var(--ink); }
 .ticker { position: relative; overflow: hidden; background: var(--band, #0A2233); color: #EAF4F7; border-bottom: 1px solid rgba(255,255,255,.08); }
@@ -322,7 +322,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 @keyframes tscroll { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } .ticker-viewport { overflow-x: auto; } }
 .ticker-viewport { overflow: hidden; flex: 1; }
-.ticker-note { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
 .news-hero h1 { font-size: clamp(36px, 5vw, 60px); }
 .news-hero p { margin-top: 14px; max-width: 60ch; }
 .ntabs { display: inline-flex; gap: 4px; padding: 4px; margin-top: 28px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
@@ -369,11 +368,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 <main>
   <section class="ticker" aria-label="Crypto market prices">
     <div class="ticker-row">
-      <span class="ticker-label"><i aria-hidden="true"></i>Live prices</span>
+      <span class="ticker-label" title="General market prices from CoinGecko. The desk confirms every North Pacific rate with you."><i aria-hidden="true"></i>Market prices</span>
       <div class="ticker-viewport"><div class="ticker-track" id="ticker"><ul><li>Loading prices…</li></ul></div></div>
     </div>
   </section>
-  <section class="wrap"><p class="ticker-note">Market prices from CoinGecko, updated every minute. Not North Pacific quotes: the desk confirms every rate with you.</p></section>
   <section class="wrap news-hero">
     <a class="back" href="index.html">← Back to home</a>
     <span class="badge"><b>News</b> Updated through the day</span>

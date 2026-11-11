@@ -303,6 +303,21 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 .f-grid a { text-decoration: none; }
 .f-grid a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .f-legal { margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; gap: 8px; max-width: 110ch; }
+.ticker { position: relative; overflow: hidden; background: var(--band, #0A2233); color: #EAF4F7; border-bottom: 1px solid rgba(255,255,255,.08); }
+.ticker-row { display: flex; align-items: center; height: 46px; }
+.ticker-label { flex: none; position: relative; z-index: 1; height: 100%; display: flex; align-items: center; gap: 8px; padding: 0 16px 0 max(16px, calc((100vw - 1160px) / 2 + 24px)); background: inherit; font: 600 12px var(--body); letter-spacing: .06em; text-transform: uppercase; color: #9FB8C5; box-shadow: 12px 0 16px -4px var(--band, #0A2233); }
+.ticker-label i { width: 7px; height: 7px; border-radius: 50%; background: #3BD7BF; box-shadow: 0 0 0 0 rgba(59,215,191,.6); animation: tpulse 2s infinite; }
+@keyframes tpulse { 70% { box-shadow: 0 0 0 7px rgba(59,215,191,0); } 100% { box-shadow: 0 0 0 0 rgba(59,215,191,0); } }
+.ticker-track { display: flex; width: max-content; animation: tscroll 60s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-track ul { display: flex; list-style: none; margin: 0; padding: 0; }
+.ticker-track li { display: flex; align-items: baseline; gap: 8px; padding: 0 22px; white-space: nowrap; font-size: 14px; font-variant-numeric: tabular-nums; border-right: 1px solid rgba(255,255,255,.08); }
+.ticker-track b { font-weight: 700; color: #fff; }
+.ticker-track .zar { color: #9FB8C5; font-size: 13px; }
+.ticker-track .up { color: #3BD7BF; } .ticker-track .down { color: #FF8A7A; }
+@keyframes tscroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } .ticker-viewport { overflow-x: auto; } }
+.ticker-viewport { overflow: hidden; flex: 1; }
 </style>
 </head>
 <body>
@@ -331,6 +346,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 </header>
 
 <main>
+  <section class="ticker" aria-label="Crypto market prices">
+    <div class="ticker-row">
+      <span class="ticker-label" title="General market prices from CoinGecko. The desk confirms every North Pacific rate with you."><i aria-hidden="true"></i>Market prices</span>
+      <div class="ticker-viewport"><div class="ticker-track" id="ticker"><ul><li>Loading prices…</li></ul></div></div>
+    </div>
+  </section>
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
@@ -580,6 +601,31 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
   var top = document.querySelector('.top');
   var onScroll = function () { top.classList.toggle('scrolled', window.scrollY > 8); };
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  // Live market prices ticker (general market prices via our server, refreshed every minute).
+  var track = document.getElementById('ticker');
+  var usd = new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+  var usdSmall = new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'USD', maximumFractionDigits: 4 });
+  var zar = new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR', maximumFractionDigits: 2 });
+  var zarBig = new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR', maximumFractionDigits: 0 });
+  function list(ts) {
+    var ul = document.createElement('ul');
+    ts.forEach(function (t) {
+      var li = document.createElement('li'), b = document.createElement('b'), p = document.createElement('span'), z = document.createElement('span'), c = document.createElement('span');
+      b.textContent = t.symbol; p.textContent = (t.usd < 1 ? usdSmall : usd).format(t.usd);
+      z.className = 'zar'; z.textContent = (t.zar >= 1000 ? zarBig : zar).format(t.zar);
+      li.appendChild(b); li.appendChild(p); li.appendChild(z);
+      if (typeof t.change24h === 'number') { c.className = t.change24h >= 0 ? 'up' : 'down'; c.textContent = (t.change24h >= 0 ? '▲ ' : '▼ ') + Math.abs(t.change24h).toFixed(2) + '%'; li.appendChild(c); }
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+  function loadPrices() {
+    fetch('https://api.northpacificgroup.co.za/public/tickers').then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function (j) { if (!j.tickers || !j.tickers.length) return; track.innerHTML = ''; track.appendChild(list(j.tickers)); var copy = list(j.tickers); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); })
+      .catch(function () { if (!track.querySelector('b')) track.innerHTML = '<ul><li>Prices unavailable right now</li></ul>'; });
+  }
+  loadPrices(); setInterval(loadPrices, 60000);
+
   var menuBtn = document.querySelector('.menu-btn');
   function setMenu(open) { top.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', String(open)); }
   menuBtn.addEventListener('click', function () { setMenu(!top.classList.contains('open')); });
