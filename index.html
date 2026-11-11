@@ -177,9 +177,9 @@ p { margin: 0; }
 @media (max-width: 760px) { .terms { grid-template-columns: 1fr; } .terms div { border-right: 0; border-bottom: 1px solid var(--line); } .terms div:last-child { border-bottom: 0; } }
 
 /* wallet band */
-.band { background: var(--band); color: var(--band-ink); border-radius: 40px; margin-inline: 12px; overflow: hidden; }
-@media (max-width: 520px) { .band { border-radius: 28px; margin-inline: 8px; } }
-.wallet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 96px 0; }
+.band { background: var(--band); color: var(--band-ink); border-radius: 40px; margin-inline: auto; width: min(1260px, calc(100% - 64px)); overflow: hidden; }
+@media (max-width: 520px) { .band { border-radius: 28px; width: calc(100% - 24px); } }
+.wallet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 72px 0; }
 @media (max-width: 900px) { .wallet { grid-template-columns: 1fr; padding: 72px 0; } }
 .band .lede { color: var(--band-muted); }
 .soon { display: inline-block; background: var(--sun); color: #2E2200; font-weight: 700; font-size: 14px; border-radius: 999px; padding: 4px 12px; margin-bottom: 22px; }
