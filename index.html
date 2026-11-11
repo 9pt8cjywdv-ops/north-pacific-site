@@ -170,8 +170,8 @@ p { margin: 0; }
 /* wallet band */
 .band { background: var(--band); color: var(--band-ink); border-radius: 40px; margin-inline: 12px; overflow: hidden; }
 @media (max-width: 520px) { .band { border-radius: 28px; margin-inline: 8px; } }
-.wallet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 96px 0 0; }
-@media (max-width: 900px) { .wallet { grid-template-columns: 1fr; padding-top: 72px; } }
+.wallet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 96px 0; }
+@media (max-width: 900px) { .wallet { grid-template-columns: 1fr; padding: 72px 0; } }
 .band .lede { color: var(--band-muted); }
 .soon { display: inline-block; background: var(--sun); color: #2E2200; font-weight: 700; font-size: 14px; border-radius: 999px; padding: 4px 12px; margin-bottom: 22px; }
 .feat { list-style: none; padding: 0; margin: 32px 0 0; display: grid; gap: 18px; }
@@ -179,13 +179,27 @@ p { margin: 0; }
 .feat svg { width: 24px; height: 24px; color: #3BD7BF; margin-top: 2px; }
 .feat b { display: block; font-weight: 600; }
 .feat span { color: var(--band-muted); font-size: 16px; }
-.wallet .btn { margin-top: 36px; margin-bottom: 96px; }
-@media (max-width: 900px) { .wallet .btn { margin-bottom: 0; } }
+.wallet .btn { margin-top: 36px; }
 
 /* phone mock-up (built in CSS, original UI) */
-.phone-stage { display: flex; justify-content: center; align-self: end; }
-.phone { width: min(330px, 86vw); aspect-ratio: 9 / 17.5; background: #020B12; border-radius: 48px 48px 0 0; padding: 12px 12px 0; box-shadow: 0 0 0 2px #23465B; }
-.screen { height: 100%; border-radius: 38px 38px 0 0; background: #F5F9FB; color: #0A2233; padding: 22px 20px; overflow: hidden; display: flex; flex-direction: column; gap: 16px; font-size: 14px; }
+.phone-stage { position: relative; display: grid; place-items: center; padding: 28px 0; isolation: isolate; }
+.phone-stage::before { content: ""; position: absolute; z-index: -1; width: min(520px, 110%); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(31, 214, 186, .30) 0%, rgba(31, 214, 186, .10) 38%, transparent 68%); }
+.phone-stage::after { content: ""; position: absolute; z-index: -1; width: min(440px, 96%); aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .10); box-shadow: 0 0 0 60px rgba(255, 255, 255, .025), 0 0 0 61px rgba(255, 255, 255, .07); }
+.phone { position: relative; width: min(300px, 78vw); aspect-ratio: 9 / 19; border-radius: 52px; padding: 11px;
+  background: linear-gradient(145deg, #2B4A5E 0%, #0B1C27 40%, #050E15 70%, #1E3A4C 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .14), 0 50px 90px -30px rgba(0, 0, 0, .7), 0 24px 40px -20px rgba(0, 0, 0, .5);
+  transform: rotate(-4deg); }
+.phone::before { content: ""; position: absolute; right: -3px; top: 26%; width: 3px; height: 72px; border-radius: 0 3px 3px 0; background: #2B4A5E; }
+.phone::after { content: ""; position: absolute; left: -3px; top: 20%; width: 3px; height: 44px; border-radius: 3px 0 0 3px; background: #2B4A5E; box-shadow: 0 64px 0 #2B4A5E; }
+.island { position: absolute; top: 22px; left: 50%; translate: -50% 0; width: 90px; height: 26px; border-radius: 20px; background: #000; z-index: 2; }
+.screen { position: relative; height: 100%; border-radius: 42px; background: linear-gradient(180deg, #E9F6F3 0%, #F5F9FB 32%); color: #0A2233; padding: 52px 18px 14px; overflow: hidden; display: flex; flex-direction: column; gap: 15px; font-size: 13.5px; }
+.s-tabs { margin-top: auto; display: flex; justify-content: space-around; padding: 10px 6px 4px; border-top: 1px solid #E2EDF2; color: #8AA0AD; font-size: 11px; font-weight: 600; }
+.s-tabs span:first-child { color: #0E8C7E; }
+.s-home { width: 110px; height: 4px; border-radius: 4px; background: #0A2233; margin: 6px auto 0; opacity: .85; }
+@media (prefers-reduced-motion: no-preference) { .phone { animation: float 7s ease-in-out infinite; } }
+@keyframes float { 50% { transform: rotate(-4deg) translateY(-10px); } }
 .s-top { display: flex; justify-content: space-between; align-items: center; color: #4C6372; font-size: 13px; }
 .s-top .av { width: 30px; height: 30px; border-radius: 50%; background: #DDF2EE; color: #0E8C7E; display: grid; place-items: center; font: 700 12px var(--body); }
 .s-bal span { color: #4C6372; font-size: 13px; }
@@ -389,6 +403,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       </div>
       <div class="phone-stage" aria-hidden="true">
         <div class="phone">
+          <span class="island"></span>
           <div class="screen">
             <div class="s-top"><span>Good morning, Lerato</span><span class="av">LM</span></div>
             <div class="s-bal"><span>Your balance</span><div>$1 240.50</div><small>≈ R21 863 · USDT</small></div>
@@ -401,6 +416,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
               <div><span><b>Bought USDT</b><small>3 Nov</small></span><span class="amt in">+$500.00</span></div>
               <div><span><b>Cashed out</b><small>1 Nov</small></span><span class="amt">−$200.00</span></div>
             </div>
+            <div class="s-tabs"><span>Home</span><span>Activity</span><span>Contacts</span><span>Profile</span></div>
+            <div class="s-home"></div>
           </div>
         </div>
       </div>
