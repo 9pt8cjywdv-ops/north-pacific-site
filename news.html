@@ -70,7 +70,21 @@ p { margin: 0; }
 .links a { text-decoration: none; color: var(--muted); }
 .links a:hover { color: var(--ink); }
 .top .btn { min-height: 42px; padding: 0 18px; font-size: 15px; }
-@media (max-width: 880px) { .links { display: none; } }
+.menu-btn { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; place-items: center; flex: none; }
+.menu-btn svg { width: 20px; height: 20px; }
+.menu-btn .x { display: none; }
+.top.open .menu-btn .x { display: block; }
+.top.open .menu-btn .bars { display: none; }
+.nav-end { display: flex; align-items: center; gap: 10px; }
+@media (max-width: 880px) {
+  .menu-btn { display: grid; }
+  .links { display: none; position: absolute; left: 12px; right: 12px; top: 76px; flex-direction: column; gap: 0; padding: 8px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 24px 50px -20px rgba(10, 34, 51, .35); font-size: 17px; }
+  .top.open .links { display: flex; }
+  .links a { display: block; padding: 14px 16px; border-radius: 14px; color: var(--ink); }
+  .links a:hover, .links a[aria-current="page"] { background: var(--mist); }
+  .top nav { position: relative; }
+}
+@media (max-width: 400px) { .top .btn { padding: 0 14px; font-size: 14px; } }
 
 /* hero */
 .hero { padding: 56px 0 88px; }
@@ -316,14 +330,20 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#0A2233"/><path d="M6 19.5c3-3.2 5-3.2 8 0s5 3.2 8 0 3.2-2.2 4.2-2.2" stroke="#2CC2AE" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M6 12.5c3-3.2 5-3.2 8 0s5 3.2 8 0 3.2-2.2 4.2-2.2" stroke="#FFC94D" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
       North Pacific
     </a>
-    <ul class="links">
+    <ul class="links" id="nav-links">
       <li><a href="index.html#otc">OTC desk</a></li>
       <li><a href="news.html" aria-current="page">News</a></li>
       <li><a href="index.html#who">Who it's for</a></li>
       <li><a href="index.html#wallet">Wallet</a></li>
       <li><a href="index.html#regulatory">Regulatory</a></li>
     </ul>
-    <a class="btn btn-primary" href="mailto:admin@northpacific.co.za?subject=OTC%20desk%20enquiry">Talk to the desk</a>
+    <div class="nav-end">
+      <a class="btn btn-primary" href="mailto:admin@northpacific.co.za?subject=OTC%20desk%20enquiry">Talk to the desk</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+        <svg class="bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
   </nav>
 </header>
 
@@ -391,6 +411,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
   var top = document.querySelector('.top');
   var onScroll = function () { top.classList.toggle('scrolled', window.scrollY > 8); };
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  var menuBtn = document.querySelector('.menu-btn');
+  function setMenu(open) { top.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', String(open)); }
+  menuBtn.addEventListener('click', function () { setMenu(!top.classList.contains('open')); });
+  document.querySelectorAll('#nav-links a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', function (e) { if (!top.contains(e.target)) setMenu(false); });
 
   var box = document.getElementById('news'), data = null, cat = 'crypto';
   try { if (location.hash === '#markets') cat = 'markets'; } catch (e) {}
