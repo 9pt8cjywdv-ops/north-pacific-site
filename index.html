@@ -308,15 +308,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 .ticker-label { flex: none; position: relative; z-index: 1; height: 100%; display: flex; align-items: center; gap: 8px; padding: 0 16px 0 max(16px, calc((100vw - 1160px) / 2 + 24px)); background: inherit; font: 600 12px var(--body); letter-spacing: .06em; text-transform: uppercase; color: #9FB8C5; box-shadow: 12px 0 16px -4px var(--band, #0A2233); }
 .ticker-label i { width: 7px; height: 7px; border-radius: 50%; background: #3BD7BF; box-shadow: 0 0 0 0 rgba(59,215,191,.6); animation: tpulse 2s infinite; }
 @keyframes tpulse { 70% { box-shadow: 0 0 0 7px rgba(59,215,191,0); } 100% { box-shadow: 0 0 0 0 rgba(59,215,191,0); } }
-.ticker-track { display: flex; width: max-content; animation: tscroll 60s linear infinite; will-change: transform; backface-visibility: hidden; transform: translate3d(0, 0, 0); }
-@media (hover: hover) and (pointer: fine) { .ticker:hover .ticker-track { animation-play-state: paused; } }
+.ticker-track { display: flex; width: max-content; will-change: transform; backface-visibility: hidden; transform: translate3d(0, 0, 0); }
 .ticker-track ul { display: flex; list-style: none; margin: 0; padding: 0; }
 .ticker-track li { display: flex; align-items: baseline; gap: 8px; padding: 0 22px; white-space: nowrap; font-size: 14px; font-variant-numeric: tabular-nums; border-right: 1px solid rgba(255,255,255,.08); }
 .ticker-track b { font-weight: 700; color: #fff; }
 .ticker-track .zar { color: #9FB8C5; font-size: 13px; }
 .ticker-track .up { color: #3BD7BF; } .ticker-track .down { color: #FF8A7A; }
-@keyframes tscroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
-@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } .ticker-viewport { overflow-x: auto; } }
+@media (prefers-reduced-motion: reduce) { .ticker-viewport { overflow-x: auto; } }
 .ticker-viewport { overflow: hidden; flex: 1; }
 </style>
 </head>
@@ -632,6 +630,23 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       .catch(function () { if (!track.querySelector('b')) track.innerHTML = '<ul><li>Prices unavailable right now</li></ul>'; });
   }
   loadPrices(); setInterval(loadPrices, 60000);
+  // Scroll driven frame by frame (steadier on phones than a CSS animation). Speed: 45 px per second.
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var x = 0, last = 0, paused = false, ticker = track.closest('.ticker');
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      ticker.addEventListener('mouseenter', function () { paused = true; });
+      ticker.addEventListener('mouseleave', function () { paused = false; });
+    }
+    function step(t) {
+      var dt = last ? Math.min(t - last, 100) : 0; last = t;
+      var half = track.scrollWidth / 2;
+      if (!paused && half > 0) { x -= dt * 0.045; if (-x >= half) x += half; track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)'; }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
 
   var menuBtn = document.querySelector('.menu-btn');
   function setMenu(open) { top.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', String(open)); }
