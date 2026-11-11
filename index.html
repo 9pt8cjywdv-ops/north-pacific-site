@@ -25,13 +25,13 @@
   --band: #0A2233; --band-ink: #E9F3F6; --band-muted: #A8C0CB; --band-line: #1D3B4E;
   --display: "Unbounded", "Segoe UI", system-ui, sans-serif;
   --body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --r-lg: 28px; --r-md: 18px; --r-sm: 12px;
+  --r-lg: 28px; --r-md: 18px; --r-sm: 12px; --ocean: .13;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #06141E; --surface: #0C1F2C; --ink: #E6F0F4; --muted: #9DB3BF; --line: #1C3445; --mist: #102838;
     --tide: #2CC2AE; --tide-ink: #04201C; --tide-soft: #0E3A36; --sun: #FFC94D; --down: #F07D70;
-    --band: #0C2434; --band-ink: #E9F3F6; --band-muted: #A8C0CB; --band-line: #21445A;
+    --band: #0C2434; --band-ink: #E9F3F6; --band-muted: #A8C0CB; --band-line: #21445A; --ocean: .35;
     color-scheme: dark;
   }
 }
@@ -39,6 +39,9 @@
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+/* Deep-sea backdrop: fixed behind everything, faint enough to keep text easy to read. */
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: url(ocean.svg) center top / cover no-repeat; opacity: var(--ocean, .13); pointer-events: none; }
+body { position: relative; isolation: isolate; }
 a { color: inherit; }
 a[href^="tel"] { white-space: nowrap; }
 img, svg { display: block; }

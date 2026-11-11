@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2CC2AE"/>
+      <stop offset="0.35" stop-color="#0E6F8C"/>
+      <stop offset="1" stop-color="#0A2233"/>
+    </linearGradient>
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#water)"/>
+  <!-- light rays from the surface -->
+  <g fill="url(#ray)">
+    <polygon points="380,0 470,0 760,1000 560,1000"/>
+    <polygon points="620,0 680,0 930,1000 800,1000"/>
+    <polygon points="880,0 990,0 1260,1000 1030,1000"/>
+    <polygon points="1180,0 1230,0 1480,1000 1370,1000"/>
+    <polygon points="140,0 200,0 360,1000 240,1000"/>
+  </g>
+  <!-- the surface, seen from below -->
+  <path d="M0 40 C 120 10, 240 70, 360 40 S 600 10, 720 40 960 70, 1080 40 1320 10, 1440 40 1600 60 1600 60 V0 H0 Z" fill="#FFFFFF" fill-opacity="0.35"/>
+  <path d="M0 95 C 160 60, 300 130, 460 95 S 760 60, 920 95 1220 130, 1380 95 1600 70 1600 70 V60 C 1440 80, 1320 30, 1180 60 S 880 110, 720 70 420 30, 260 70 0 100 0 100 Z" fill="url(#wave)"/>
+  <!-- slow swells further down -->
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <path d="M-50 330 C 200 290, 400 370, 650 330 S 1100 290, 1350 330 1650 360" stroke-opacity="0.14" stroke-width="3"/>
+    <path d="M-50 470 C 250 430, 450 510, 750 470 S 1200 430, 1450 470 1650 490" stroke-opacity="0.10" stroke-width="2.5"/>
+    <path d="M-50 640 C 200 610, 500 680, 800 640 S 1250 600, 1650 650" stroke-opacity="0.07" stroke-width="2"/>
+    <path d="M-50 820 C 300 790, 600 860, 900 820 S 1350 790, 1650 830" stroke-opacity="0.05" stroke-width="2"/>
+  </g>
+  <!-- bubbles -->
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.35">
+    <circle cx="1240" cy="520" r="7" stroke-width="1.5"/>
+    <circle cx="1262" cy="470" r="4" stroke-width="1.2"/>
+    <circle cx="1250" cy="430" r="2.5" stroke-width="1"/>
+    <circle cx="300" cy="720" r="6" stroke-width="1.5"/>
+    <circle cx="318" cy="676" r="3.5" stroke-width="1.2"/>
+    <circle cx="306" cy="645" r="2" stroke-width="1"/>
+    <circle cx="820" cy="880" r="5" stroke-width="1.3"/>
+    <circle cx="836" cy="842" r="3" stroke-width="1"/>
+  </g>
+</svg>
