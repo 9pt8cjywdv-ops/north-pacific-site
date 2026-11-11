@@ -148,8 +148,9 @@ p { margin: 0; }
 .q-foot .btn:hover { background: #FFD670; }
 
 /* trust strip */
-.trust { border-block: 1px solid var(--line); background: var(--surface); }
-.trust ul { list-style: none; margin: 0 auto; padding-block: 22px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.trust { width: min(1260px, calc(100% - 64px)); margin-inline: auto; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: 0 18px 40px -28px rgba(10, 34, 51, .35); }
+@media (max-width: 520px) { .trust { width: calc(100% - 24px); border-radius: 22px; } }
+.trust ul { list-style: none; margin: 0 auto; padding-block: 26px; padding-inline: clamp(20px, 4vw, 48px); max-width: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 .trust li { display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--muted); line-height: 1.35; }
 .trust li strong { display: block; color: var(--ink); font-weight: 600; }
 .trust svg { width: 26px; height: 26px; flex: none; color: var(--tide); }
