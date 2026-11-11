@@ -15,9 +15,9 @@ jobs:
         run: |
           set -euo pipefail
           echo "$URL" | grep -Eq '^https://images\.unsplash\.com/photo-[A-Za-z0-9-]+(\?.*)?$' || { echo "Only images.unsplash.com photo URLs"; exit 1; }
-          curl -sfL "${URL%%\?*}?fm=jpg&q=80&w=2400&fit=crop" -o raw.jpg
-          sudo apt-get -qq install -y imagemagick >/dev/null
-          convert raw.jpg -resize 2400x -strip -interlace JPEG -quality 62 ocean.jpg
-          rm raw.jpg; ls -la ocean.jpg
+          # Unsplash resizes and compresses on its side.
+          curl -sfL --max-time 60 "${URL%%\?*}?fm=jpg&q=60&w=2400&fit=max" -o ocean.jpg
+          file ocean.jpg | grep -q JPEG || { echo "Download is not a JPEG"; exit 1; }
+          ls -la ocean.jpg
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add ocean.jpg && git commit -m "Background photo: Ran Ding on Unsplash (Unsplash License)" && git push
