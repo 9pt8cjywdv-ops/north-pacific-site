@@ -305,6 +305,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 </style>
 <style>
 .news-hero { padding-block: 72px 24px; }
+.back { display: inline-block; margin-bottom: 22px; color: var(--muted); font-weight: 600; font-size: 15px; text-decoration: none; }
+.back:hover { color: var(--ink); }
 .news-hero h1 { font-size: clamp(36px, 5vw, 60px); }
 .news-hero p { margin-top: 14px; max-width: 60ch; }
 .ntabs { display: inline-flex; gap: 4px; padding: 4px; margin-top: 28px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
@@ -331,6 +333,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       North Pacific
     </a>
     <ul class="links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="index.html#otc">OTC desk</a></li>
       <li><a href="news.html" aria-current="page">News</a></li>
       <li><a href="index.html#who">Who it's for</a></li>
@@ -349,6 +352,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 
 <main>
   <section class="wrap news-hero">
+    <a class="back" href="index.html">← Back to home</a>
     <span class="badge"><b>News</b> Updated through the day</span>
     <h1>Crypto and financial markets news</h1>
     <p class="lede">The latest headlines from leading crypto and financial publishers, in one place. Each story opens on the publisher's own site.</p>
