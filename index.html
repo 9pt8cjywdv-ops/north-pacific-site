@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>North Pacific</title>
-<meta name="description" content="North Pacific is an authorised South African financial services provider (FSP 54432). Our OTC desk trades USDT against rand for businesses, and the North Pacific Wallet is coming soon.">
+<meta name="description" content="North Pacific is an authorised South African financial services provider (FSP 54432). Our OTC desk trades USDT against rand, US dollars and euros for businesses, and the North Pacific Wallet is coming soon.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,6 +97,10 @@ p { margin: 0; }
 .coin { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font: 700 13px var(--display); }
 .coin.usdt { background: #26A17B; color: #fff; }
 .coin.zar { background: var(--sun); color: #3A2A00; margin-left: -14px; border: 3px solid var(--band); }
+.fx { display: flex; gap: 6px; margin: 8px 0 4px; }
+.fx button { flex: 1; border: 1px solid rgba(255, 255, 255, .14); background: transparent; color: var(--band-muted); font: 600 13px var(--body); letter-spacing: .04em; padding: 7px 0; border-radius: 999px; cursor: pointer; }
+.fx button[aria-pressed="true"] { background: rgba(31, 214, 186, .14); border-color: #1FD6BA; color: #fff; }
+.fx button:focus-visible { outline: 2px solid #1FD6BA; outline-offset: 2px; }
 .live { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--band-muted); }
 .live i { width: 8px; height: 8px; border-radius: 50%; background: #3BD7BF; box-shadow: 0 0 0 0 rgba(59, 215, 191, .6); animation: pulse 2s infinite; }
 .live.off i { background: var(--band-muted); animation: none; }
@@ -304,8 +308,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
     <div class="wrap hero-grid">
       <div>
         <span class="badge"><b>FSP 54432</b> Authorised by the FSCA</span>
-        <h1>Trade USDT and rand in size.</h1>
-        <p class="lede">A real trader at North Pacific buys and sells USDT against rand for your business. Every quote is priced across the full order book for your size, settled from your prefunded balance, and confirmed in writing.</p>
+        <h1>Trade USDT against rand, dollars and euros.</h1>
+        <p class="lede">A real trader at North Pacific buys and sells USDT against rand (ZAR), US dollars (USD) and euros (EUR) for your business. Every quote is priced across the full order book for your size, settled from your prefunded balance, and confirmed in writing.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#open">Open an account</a>
           <a class="btn btn-ghost" href="#otc">See how it works</a>
@@ -314,7 +318,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
 
       <form class="quote" id="rfq" aria-labelledby="rfq-title" novalidate>
         <div class="q-head">
-          <div class="pair"><span class="coin usdt" aria-hidden="true">₮</span><span class="coin zar" aria-hidden="true">R</span> USDT / ZAR</div>
+          <div class="pair"><span class="coin usdt" aria-hidden="true">₮</span><span class="coin zar" id="fx-coin" aria-hidden="true">R</span> USDT / <span id="fx-code">ZAR</span></div>
         </div>
         <h2 id="rfq-title" class="q-title">Request a price</h2>
         <p class="q-sub">Tell us what you need. A trader confirms a firm, all-in rate with you before anything is agreed.</p>
@@ -323,6 +327,11 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
           <div class="side" role="group" aria-label="Direction">
             <button type="button" aria-pressed="true" data-side="buy">Buy USDT</button>
             <button type="button" aria-pressed="false" data-side="sell">Sell USDT</button>
+          </div>
+          <div class="fx" role="group" aria-label="Currency">
+            <button type="button" aria-pressed="true" data-fx="ZAR">ZAR</button>
+            <button type="button" aria-pressed="false" data-fx="USD">USD</button>
+            <button type="button" aria-pressed="false" data-fx="EUR">EUR</button>
           </div>
           <div class="field">
             <label for="amount" id="amount-label">Amount you want to pay</label>
@@ -359,13 +368,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
       </div>
       <ol class="steps">
         <li><h3>Open your account</h3><p>We verify your business, its directors and owners. Our compliance team approves the account, usually within a few working days.</p></li>
-        <li><h3>Prefund</h3><p>Deposit rand by EFT with your reference, or send USDT to your own Ethereum deposit address.</p></li>
+        <li><h3>Prefund</h3><p>Deposit rand, dollars or euros by bank transfer with your reference, or send USDT to your own Ethereum deposit address.</p></li>
         <li><h3>Ask for a price</h3><p>Tell your trader the amount. You get a firm all-in rate, held for long enough to say yes.</p></li>
-        <li><h3>Settle and withdraw</h3><p>The trade settles at once. Ask us to pay rand to your verified bank account or send USDT to your approved wallet.</p></li>
+        <li><h3>Settle and withdraw</h3><p>The trade settles at once. Ask us to pay rand, dollars or euros to your verified bank account or send USDT to your approved wallet.</p></li>
       </ol>
 
       <dl class="terms">
-        <div><dt>Pairs</dt><dd>USDT against rand (ZAR)</dd></div>
+        <div><dt>Pairs</dt><dd>USDT against rand (ZAR), US dollars (USD) and euros (EUR)</dd></div>
         <div><dt>Network</dt><dd>USDT on Ethereum (ERC-20)</dd></div>
         <div><dt>Pricing</dt><dd>One all-in rate per trade</dd></div>
       </dl>
@@ -376,12 +385,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
     <div class="wrap who">
       <div class="head" style="margin-bottom:0">
         <h2>Built for businesses that move real volume</h2>
-        <p class="lede">If you need to convert between rand and USDT regularly, in amounts where a few basis points matter, the desk is for you.</p>
+        <p class="lede">If you need to convert between USDT and rand, dollars or euros regularly, in amounts where a few basis points matter, the desk is for you.</p>
       </div>
       <div class="who-list">
-        <div><h3>Importers and exporters</h3><p>Pay and get paid by suppliers and customers abroad who settle in USDT, and bring the proceeds home in rand.</p></div>
+        <div><h3>Importers and exporters</h3><p>Pay and get paid by suppliers and customers abroad who settle in USDT, and bring the proceeds home in rand, dollars or euros.</p></div>
         <div><h3>Payment companies</h3><p>Top up or unwind USDT liquidity without moving the market on an exchange.</p></div>
-        <div><h3>Exchanges and brokers</h3><p>Rebalance inventory between rand and USDT with one counterparty and a clean paper trail.</p></div>
+        <div><h3>Exchanges and brokers</h3><p>Rebalance inventory between USDT and fiat currencies with one counterparty and a clean paper trail.</p></div>
         <div><h3>Corporate treasuries</h3><p>Hold and convert stablecoins with a regulated South African provider and full audit records.</p></div>
         <div><h3>High-net-worth clients</h3><p>Larger personal trades handled with the same verification and confirmations as our business clients.</p></div>
       </div>
@@ -505,7 +514,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
           <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#0A2233"/><path d="M6 19.5c3-3.2 5-3.2 8 0s5 3.2 8 0 3.2-2.2 4.2-2.2" stroke="#2CC2AE" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M6 12.5c3-3.2 5-3.2 8 0s5 3.2 8 0 3.2-2.2 4.2-2.2" stroke="#FFC94D" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
           North Pacific
         </a>
-        <p style="margin-top:14px;max-width:40ch">Rand and USDT for South African businesses, from an authorised financial services provider.</p>
+        <p style="margin-top:14px;max-width:40ch">USDT against rand, dollars and euros for South African businesses, from an authorised financial services provider.</p>
       </div>
       <div>
         <h3>Products</h3>
@@ -545,22 +554,30 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 44px; font-size: 14p
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   // Price request: builds an email to the desk. No prices are shown on the site; a trader confirms every rate.
-  var side = 'buy', amount = document.getElementById('amount');
+  var side = 'buy', fx = 'ZAR', amount = document.getElementById('amount');
+  var SYM = { ZAR: 'R', USD: '$', EUR: '€' }, NAME = { ZAR: 'rand', USD: 'US dollars', EUR: 'euros' };
   // South African style: spaces between thousands.
   var num = function (v) { var f = String(v).split('.'); return f[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + (f[1] ? '.' + f[1] : ''); };
   function setSide(s) {
     side = s;
     document.querySelectorAll('.side button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.side === s)); });
     document.getElementById('amount-label').textContent = s === 'buy' ? 'Amount you want to pay' : 'Amount of USDT you want to sell';
-    document.getElementById('in-cur').textContent = s === 'buy' ? 'R' : '₮';
+    document.getElementById('in-cur').textContent = s === 'buy' ? SYM[fx] : '₮';
     amount.placeholder = s === 'buy' ? '1 000 000' : '50 000';
   }
   document.querySelectorAll('.side button').forEach(function (b) { b.addEventListener('click', function () { setSide(b.dataset.side); }); });
+  document.querySelectorAll('.fx button').forEach(function (b) { b.addEventListener('click', function () {
+    fx = b.dataset.fx;
+    document.querySelectorAll('.fx button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    document.getElementById('fx-code').textContent = fx;
+    document.getElementById('fx-coin').textContent = SYM[fx];
+    setSide(side);
+  }); });
   amount.addEventListener('blur', function () { var v = amount.value.replace(/[^\d.]/g, ''); amount.value = v ? num(v) : ''; });
   document.getElementById('rfq').addEventListener('submit', function (e) {
     e.preventDefault();
     var amt = amount.value.trim(), who = document.getElementById('company').value.trim();
-    var what = side === 'buy' ? 'Buy USDT, paying R' + (amt || '[amount]') : 'Sell ' + (amt || '[amount]') + ' USDT for rand';
+    var what = side === 'buy' ? 'Buy USDT, paying ' + fx + ' ' + (amt || '[amount]') : 'Sell ' + (amt || '[amount]') + ' USDT for ' + NAME[fx] + ' (' + fx + ')';
     var body = 'Hi North Pacific desk,\n\nPlease give me a price:\n' + what + '\n\nCompany / name: ' + (who || '') + '\nBest number to reach me: \n';
     window.location.href = 'mailto:admin@northpacific.co.za?subject=' + encodeURIComponent('Price request: ' + what) + '&body=' + encodeURIComponent(body);
   });
